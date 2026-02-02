@@ -8,14 +8,28 @@ const Chat = ({ username }) => {
   const [chat, setChat] = useState([]);
   const bottomRef = useRef(null);
 
+
   useEffect(() => {
+    /*    Emit join ONLY once when component mounts */
     socket.emit("join", username);
 
+    /*  receiveMessage can be:
+       - single message object
+       - OR array of system messages (existing users) */
+
     socket.on("receiveMessage", (data) => {
-      setChat((prev) => [...prev, data]);
+      if (Array.isArray(data)) {
+        // existing users list (shown only once)
+        setChat(data);
+      } else {
+        // normal single message
+        setChat((prev) => [...prev, data]);
+      }
     });
 
-    return () => socket.off("receiveMessage");
+    return () => {
+      socket.off("receiveMessage");
+    };
   }, [username]);
 
   useEffect(() => {
@@ -32,8 +46,8 @@ const Chat = ({ username }) => {
   return (
     <div className="flex flex-col h-[95vh] bg-gray-100">
       {/* Header */}
-      <div className="bg-blue-600 text-white p-4 text-lg font-semibold">
-        Logged in as: {username}
+      <div className="bg-blue-600 text-white p-2 text-lg font-semibold">
+        Logged in as : {username}
       </div>
 
       {/* Chat messages */}

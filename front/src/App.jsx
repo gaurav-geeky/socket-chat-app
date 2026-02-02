@@ -18,9 +18,7 @@ function App() {
         (
           <button onClick={joinChat}>Join Chat</button>
         )
-      }
-
-      
+      } 
     </div>
   );
 }
