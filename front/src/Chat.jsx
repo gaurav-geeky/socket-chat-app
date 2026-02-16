@@ -1,9 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 
-// const socket = io("http://localhost:8008"); 
+// const socket = io("http://localhost:8008");
 
-const socket = io("https://chat-node-8tm4.onrender.com");
+
+const socket = io("https://chat-node-8tm4.onrender.com", {
+  transports: ["websocket", "polling"],
+});
+
 
 const Chat = ({ username }) => {
   const [message, setMessage] = useState("");
@@ -39,7 +43,7 @@ const Chat = ({ username }) => {
     <div className="w-full h-[92dvh] flex flex-col bg-gray-100 ">
 
       {/* 🔵 HEADER */}
-      <div className="bg-blue-600 text-white px-3 py-2 font-semibold shrink-0">
+      <div className="bg-blue-600 text-white px-3 py-2 font-semibold shrink-0 flex justify-around">
         Logged in as : {username}
       </div>
 

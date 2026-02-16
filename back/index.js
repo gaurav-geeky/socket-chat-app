@@ -14,7 +14,7 @@ const io = new Server(server, {
       "http://localhost:5173",
       "https://chatapp-gndp.onrender.com"
     ],
-    methods: ["GET", "POST"], 
+    methods: ["GET", "POST"],
   },
 });
 
@@ -82,10 +82,7 @@ io.on("connection", (socket) => {
     }
     console.log("User disconnected:", socket.id);
   });
-
-
 });
-
 
 server.listen(8008, () => {
   console.log("Server running at http://localhost:8008");
